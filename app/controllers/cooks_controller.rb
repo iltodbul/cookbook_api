@@ -36,6 +36,6 @@ class CooksController < ApplicationController
   private
 
   def cook_params
-    params.require(:cook).permit(:name, :email)
+    params.require(:cook).permit(:name, :email, :password, :is_deleted)
   end
 end

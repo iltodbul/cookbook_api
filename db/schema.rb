@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_21_202213) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_27_184711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_21_202213) do
     t.boolean "is_deleted", null: false
     t.datetime "deleted_at"
     t.string "email", null: false
-    t.string "password", null: false
+    t.string "password_digest", null: false
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -85,7 +85,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_21_202213) do
     t.index ["isdeleted"], name: "ix_recipes_isdeleted"
   end
 
-
+  create_table "users", id: { type: :string, limit: 450 }, force: :cascade do |t|
+    t.string "username", limit: 256
+    t.string "email", limit: 256
+    t.text "password_hash"
+    t.text "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at"
+    t.boolean "is_deleted", null: false
+    t.datetime "deleted_at"
+    t.index ["is_deleted"], name: "ix_aspnetusers_isdeleted"
+  end
 
   add_foreign_key "images", "users", column: "addedbyuserid", name: "fk_images_aspnetusers_addedbyuserid"
   add_foreign_key "recipeingredients", "ingredients", column: "ingredientid", name: "fk_recipeingredients_ingredients_ingredientid"
