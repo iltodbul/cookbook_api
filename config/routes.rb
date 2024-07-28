@@ -11,4 +11,5 @@ Rails.application.routes.draw do
 
   resources :cooks
   resources :categories
+  post "/cooks/login", to: "cooks#login"
 end
