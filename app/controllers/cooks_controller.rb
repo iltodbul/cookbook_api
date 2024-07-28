@@ -29,8 +29,22 @@ class CooksController < ApplicationController
 
   def destroy
     @cook = Cook.find(params[:id])
-    @cook.destroy
-    render json: { message: 'Cook deleted' }
+    # @cook.destroy
+    @cook.update(is_deleted: true, deleted_at: Time.now, password: params[:password])
+    if @cook.save
+      render json: { message: "Cook soft deleted" }
+    else
+      render json: { errors: @cook.errors.full_messages }, status: 422
+    end
+  end
+
+  def login
+    @cook = Cook.authenticate(params[:email], params[:password])
+    if @cook
+      render json: @cook
+    else
+      render json: { message: "Invalid email or password" }, status: 401
+    end
   end
 
   private
