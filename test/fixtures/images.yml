@@ -1,4 +1,15 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: images
+#
+#  created_at       :datetime         not null
+#  updated_at       :datetime
+#  recipe_id        :integer          not null
+#  extension        :text
+#  remote_image_url :text
+#  id               :uuid             not null, primary key
+#  cook_id          :uuid
+#
 
 # This model initially had no columns defined. If you add columns to the
 # model remove the "{}" from the fixture names and add the columns immediately

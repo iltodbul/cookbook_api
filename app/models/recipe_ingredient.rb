@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: recipe_ingredients
+#
+#  id            :integer          not null, primary key
+#  recipe_id     :integer          not null
+#  ingredient_id :integer          not null
+#  quantity      :text
+#
 class RecipeIngredient < ApplicationRecord
   belongs_to :recipe
   belongs_to :ingredient
