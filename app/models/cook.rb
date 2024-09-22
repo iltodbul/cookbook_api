@@ -28,5 +28,6 @@ class Cook < ApplicationRecord
   end
 end
 
+
 #Cook.create(name: "Cook3", is_deleted: false, email: "adc@test.it", password: "hashPass3")
 #Cook.create(name: "Ilo", email: "a@a.com", password: "1234567")
