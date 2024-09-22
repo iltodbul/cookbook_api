@@ -11,4 +11,11 @@
 #  cook_id          :uuid
 #
 class Image < ApplicationRecord
+  # Relationships
+  belongs_to :recipe
+  belongs_to :cook, optional: true
+
+  # Validations
+  validates :recipe_id, presence: true
+  validates :cook_id, presence: true
 end
