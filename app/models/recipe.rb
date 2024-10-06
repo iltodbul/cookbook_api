@@ -17,4 +17,22 @@
 #  cook_id          :uuid
 #
 class Recipe < ApplicationRecord
+  # Relationships
+  belongs_to :cook
+  belongs_to :category
+  has_many :recipe_ingredients
+  has_many :ingredients, through: :recipe_ingredients
+  has_many :images
+
+  # Validations
+  validates :name, presence: true
+  validates :instructions, presence: true
+  validates :preparation_time, presence: true
+  validates :cooking_time, presence: true
+  validates :portions_count, presence: true
+  validates :category_id, presence: true
+  validates :cook_id, presence: true
+
+  # Callbacks
+  before_save { self.is_deleted = false }
 end
