@@ -12,4 +12,10 @@ Rails.application.routes.draw do
   resources :cooks
   resources :categories
   post "/cooks/login", to: "cooks#login"
+  resources :recipes
+  get "/recipes/:id/full", to: "recipes#full_recipe_info"
+  get "/recipes/:id/full_info", to: "recipes#full_info"
+  get "/recipes/search/:query", to: "recipes#search"
+  resources :ingredients
+  resources :images
 end

@@ -17,6 +17,31 @@ class RecipesController < ApplicationController
     end
   end
 
+  def full_recipe_info
+    set_recipe
+
+    if @recipe.is_deleted
+      render json: { message: "Recipe not found" }, status: 404
+    else
+      render json: @recipe, serializer: RecipeSerializer
+    end
+  end
+
+  def full_info
+    set_recipe
+
+    if @recipe.is_deleted
+      render json: { message: "Recipe not found" }, status: 404
+    else
+      render json: @recipe, include: [:cook, :category, :ingredients, :images, :recipe_ingredients]
+    end
+  end
+
+  def search
+    @recipes = Recipe.where("name ILIKE ?", "%#{params[:query]}%").limit(10)
+    render json: @recipes
+  end
+
   # POST /recipes
   def create
     @recipe = Recipe.new(recipe_params)
