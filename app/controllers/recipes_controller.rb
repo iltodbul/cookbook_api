@@ -28,17 +28,28 @@ class RecipesController < ApplicationController
   end
 
   def full_info
-    set_recipe
+    service = FetchRecipeDetailsService.new(params[:id])
+    recipe_details = service.call
 
-    if @recipe.is_deleted
+    if recipe_details.nil?
       render json: { message: "Recipe not found" }, status: 404
     else
-      render json: @recipe, include: [:cook, :category, :ingredients, :images, :recipe_ingredients]
+      render json: recipe_details, status: 200
     end
   end
 
-  def search
+  def search_by_name
     @recipes = Recipe.where("name ILIKE ?", "%#{params[:query]}%").limit(10)
+    render json: @recipes
+  end
+
+  def search_by_ingredient
+    @recipes = Recipe.joins(:ingredients).where("ingredients.name ILIKE ?", "%#{params[:query]}%").limit(10)
+    render json: @recipes
+  end
+
+  def search_by_category
+    @recipes = Recipe.joins(:category).where("categories.name ILIKE ?", "%#{params[:query]}%").limit(10)
     render json: @recipes
   end
 
