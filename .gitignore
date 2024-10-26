@@ -28,3 +28,6 @@
 # Ignore master keys for decrypting credentials and more.
 /config/master.key
 /config/credentials/development.key
+
+# Ignore sandbox file
+ruby.rb
