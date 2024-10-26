@@ -11,7 +11,7 @@ const api = axios.create({
 
 export const recipesAPI = {
   getAll: () => api.get("/recipes"),
-  getOne: (id) => api.get(`/recipes/${id}/full`),
+  getOne: (id) => api.get(`/recipes/${id}/full_info`),
   searchByIngredient: (query) =>
     api.get(`/recipes/search_by_ingredient/${query}`),
   create: (data) => api.post("/recipes", data),
