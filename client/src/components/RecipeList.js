@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { recipesAPI } from "../services/api";
-import "./RecipeList.css";
-import Ingredients from "./Ingredients";
+
+import { styled } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import ButtonBase from "@mui/material/ButtonBase";
+
+const Img = styled("img")({
+  margin: "auto",
+  display: "block",
+  maxWidth: "100%",
+  maxHeight: "100%",
+});
 
 const RecipeList = () => {
   const [recipes, setRecipes] = useState([]);
@@ -36,66 +47,49 @@ const RecipeList = () => {
   }
 
   return (
-    <div>
+    <Paper
+      sx={(theme) => ({
+        p: 2,
+        margin: "auto",
+        maxWidth: 1200,
+        flexGrow: 1,
+        backgroundColor: "#fff",
+        ...theme.applyStyles("dark", {
+          backgroundColor: "#1A2027",
+        }),
+      })}
+    >
       <h2>Нашите Топ 10 рецепти</h2>
-      <div className="recipe-list">
+      <Grid container spacing={2}>
         {recipes.map((recipe) => (
-          <div key={recipe.id} className="recipe-card">
-            <h3>{recipe.name}</h3>
-            <p>
-              Създадена от: <b>{recipe.cook.name}</b> на {""}
-              <b>{formatDate(recipe.created_at)}</b>
-            </p>
-            <h6>Категория: {recipe.category.name}</h6>
-            <div className="image-list">
-              {recipe.images_url.map((imageUrl, index) => (
-                <div key={`${recipe.id}-${index}`} className="image-card">
-                  <img
-                    src={imageUrl}
-                    alt={`Recipe ${recipe.name}`}
-                    className="recipe-image"
+          <Grid key={recipe.id} item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  {recipe.name}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Категория: {recipe.category.name}
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                  Създадена от: <b>{recipe.cook.name}</b> на {""}
+                  <b>{formatDate(recipe.created_at)}</b>
+                </Typography>
+              </Grid>
+              <Grid item>
+                <ButtonBase sx={{ width: 328, height: 328 }}>
+                  <Img
+                    alt={`Рецепта ${recipe.name}`}
+                    src={recipe.images_url[0]}
                   />
-                </div>
-              ))}
-            </div>
-          </div>
+                </ButtonBase>
+              </Grid>
+            </Grid>
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Paper>
   );
-
-  //   return (
-  //     <div>
-  //       <h2>Нашите Топ 10 рецепти</h2>
-  //       <div className="recipe-list">
-  //         {recipes.map((recipe) => (
-  //           <div key={recipe.id} className="recipe-card">
-  //             <h3>{recipe.name}</h3>
-  //             <p>
-  //               Създадена от: <b>{recipe.cook.name}</b> на {""}
-  //               <b>{formatDate(recipe.created_at)}</b>
-  //             </p>
-  //             <h6>Категория: {recipe.category.name}</h6>
-  //             <h5>Необходими продукти:</h5>
-  //             <Ingredients />
-  //             <h5>НАЧИН НА ПРИГОТВЯНЕ:</h5>
-  //             <p>{recipe.instructions}</p>
-  //             <div className="image-list">
-  //               {recipe.images_url.map((imageUrl, index) => (
-  //                 <div key={`${recipe.id}-${index}`} className="image-card">
-  //                   <img
-  //                     src={imageUrl}
-  //                     alt={`Recipe ${recipe.name}`}
-  //                     className="recipe-image"
-  //                   />
-  //                 </div>
-  //               ))}
-  //             </div>
-  //           </div>
-  //         ))}
-  //       </div>
-  //     </div>
-  //   );
 };
 
 export default RecipeList;
