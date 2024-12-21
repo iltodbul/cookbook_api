@@ -1,15 +1,19 @@
-// import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RecipeList from "./components/RecipeList";
-import ComplexGrid from "./components/ComplexGrid";
+import Recipe from "./components/Recipe";
 
 function App() {
   return (
     <div className="App">
       <h1>ГОТВАРСКА КНИГА</h1>
-      <RecipeList />
-      {/* <ComplexGrid /> */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<RecipeList />} />
+          <Route path="/recipe/:id" element={<Recipe />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

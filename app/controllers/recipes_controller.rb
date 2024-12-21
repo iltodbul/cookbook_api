@@ -3,7 +3,7 @@ class RecipesController < ApplicationController
 
   # GET /recipes
   def index
-    @recipes = Recipe.where(is_deleted: false).limit(10)
+    @recipes = Recipe.where(is_deleted: false).limit(12)
     render json: @recipes
   end
 
