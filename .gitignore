@@ -31,3 +31,6 @@
 
 # Ignore sandbox file
 ruby.rb
+
+# Platform-specific lock files (controversial, but useful for some projects)
+Gemfile.lock
